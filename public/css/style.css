@@ -1,0 +1,44 @@
+/* CSS để thực hiện hiệu ứng sáng nhẹ lên khi hover */
+.overlay:hover {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.25));
+  opacity: 0.8;
+}
+.overlay {
+  cursor: pointer;
+  
+  padding: 1rem;
+}
+/* CSS cho biểu tượng mũi tên */
+.toggle-button .toggle-icon {
+transition: transform 0.2s ease-in-out;
+}
+
+.toggle-button.open .toggle-icon {
+transform: rotate(90deg); /* Biểu tượng xoay khi mở ra */
+}
+
+/* footer { */
+/* grid-area: now-playing-bar;
+width: 100%; */
+/* background: linear-gradient(90deg, #af2896, #509bf5); */
+/* color: white;
+height: auto; */
+/* } */
+
+
+
+/* Co dinh phan tu */
+footer {
+position: fixed;
+bottom: 0;
+width: 100%;
+background-color: #333; /* Thay đổi màu nền tùy theo mong muốn */
+color: white; /* Thay đổi màu chữ tùy theo mong muốn */
+padding: 10px;
+text-align: center;
+}
+/* CSS cho phần tử thu lại/mở ra */
+#toggleDiv {
+  display: display;
+  height: 200px;
+}

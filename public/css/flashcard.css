@@ -1,0 +1,139 @@
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 2; /* Giá trị z-index cao hơn */
+}
+
+
+@keyframes lift {
+  0%, 100% {
+    transform: translateZ(0rem);
+  }
+  
+  50% {
+    transform: translateZ(8rem);
+  }
+}
+
+.lift-card {
+  animation: lift 1s;
+}
+
+.card1 {
+  
+  position: relative;
+  text-align: center;
+  line-height: 3rem;
+  width: 19rem;
+  height: 23rem;
+  margin: 4rem auto;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card2 {
+  
+  position: relative;
+  text-align: center;
+  line-height: 3rem;
+  width: 19rem;
+  height: 23rem;
+  margin: 4rem auto;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+
+.face {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  background:  lightblue;
+  border-radius: 0.3rem;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+}
+
+.face2 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  background:  #222222;
+  border-radius: 0.3rem;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+}
+
+.front {
+  border-top: 5px solid #f60;
+  backface-visibility: hidden;
+}
+
+.front2 {
+  border-top: 5px solid #f60;
+  backface-visibility: hidden;
+}
+
+.back {
+  border-top: 5px solid #25c;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.back-flipped {
+  transform: rotateY(360deg);
+}
+
+.word {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.word2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.kana {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.sentence {
+  color: #888;
+}
+
+.sentence span {
+  color: rgb(13, 13, 14);
+}
+
+.back div {
+  margin: 1rem;
+}
+/* Thêm đoạn mã sau vào flashcard.css để căn chỉnh vị trí của nút "Add" */
+.back-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-button {
+  margin-top: auto; /* Đẩy nút "Add" lên cuối */
+}

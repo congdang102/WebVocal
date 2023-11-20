@@ -1,0 +1,54 @@
+/* Co dinh phan tu */
+/* Tệp comonvoca.css */
+/* CSS */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 2; /* Giá trị z-index cao hơn */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 2; /* Giá trị z-index cao hơn */
+}
+#buttonfixed {
+    position: fixed;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+    a {
+        text-decoration: none; /* Loại bỏ gạch chân cho tất cả các thẻ a */
+        color: inherit; /* Màu chữ giống màu mặc định */
+    }
+    /* Khi hover vào div chứa nội dung */
+    a:hover .row.theme {
+        background-color: lightblue; /* Đổi màu nền khi hover */
+    }
+    .theme {
+        /* Kiểu hiển thị mặc định */
+        transition: all 0.3s; /* Thêm hiệu ứng chuyển đổi mượt mà */
+    }
+    
+    .theme:hover {
+        /* Kiểu hiển thị khi hover */
+        
+        background-color: lightblue; /* Màu nền khi hover */
+        cursor: pointer;
+    }
+    
+    
+    /* Đặt hover cho liên kết */
+  
