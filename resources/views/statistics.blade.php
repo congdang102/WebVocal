@@ -7,7 +7,7 @@
    
 </head>
 <x-app-layout>
-    <div class="container-fluid ">
+  
         <div class="row text-dark my-5">
             <div id="left" class="col-3">
             </div>
@@ -151,6 +151,6 @@
                 <div id="right" class="col-3">
                 </div>
         </div>
-    </div>
+
 
 </x-app-layout>

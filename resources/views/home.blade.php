@@ -96,8 +96,8 @@
   </div>
 
 </div>
-<div class="col-2"></div>
-</div>
+
+
 
 
 <script src="{{ asset('js/home.js') }}"></script>

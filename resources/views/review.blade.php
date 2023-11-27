@@ -7,7 +7,7 @@
 <x-app-layout>
     <div class="rounded bg-primary">
         <a href="{{ route('topic', $topic->TopicID)}}" style="text-decoration: none; color: inherit;">
-            <div id="header" class="row p-4  text-white border border-primary border-4-bottom">
+            <div id="header" class="row p-4  text-white ">
                 <div class="col-5">
                     <div class="row">
                         <div class="col-1">

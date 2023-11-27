@@ -81,9 +81,6 @@
                             <button type="button" class="btn add add-button-{{ $word->WordID }}" data-word-id="{{ $word->WordID }}">
                                 <i class="icon-folder-plus text-primary"></i>
                             </button>
-                            
-                          
-                            {{-- <x-ri-add-fill class="text-primary" style="width: 1.5rem; height: 1.5rem;"/> --}}
                         </div>
                     </div>
                    
@@ -119,16 +116,16 @@
             url: "/save-folder",
             
             data: {
-                _token: "{{ csrf_token() }}", // Đảm bảo bạn đang gửi token CSRF
+                _token: "{{ csrf_token() }}", // Đảm bảo  đang gửi token CSRF
                 wordId: wordId,
                 userId: userId,
             },
             success: function(response) {
-                // Xử lý kết quả nếu cần
+                
             },
         });
 
-                // Tiến hành hiển thị từ vựng tiếp theo
+             
             });
         @endforeach
     </script>

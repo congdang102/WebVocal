@@ -7,7 +7,6 @@
    
 </head>
 <x-app-layout>
-    <div class="container-fluid text-dark">
         <div class="rounded bg-primary">
             <a href="/home" style="text-decoration: none; color: inherit;">
                 <div id="header" class="row p-4  text-dark ">
@@ -143,6 +142,6 @@
         </div>
         
         <br> <br>
-    </div>
+
     
 </x-app-layout>

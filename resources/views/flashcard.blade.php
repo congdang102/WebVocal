@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/flashcard.css') }}">
 </head>
 <x-app-layout>
-    <div class="container-fluid ">
+   
         <div class="rounded bg-primary">
             <a href="{{ route('topic', $topic->TopicID)}}" style="text-decoration: none; color: inherit;">
                 <div id="header" class="row p-4  text-dark ">
@@ -82,7 +82,7 @@
             <button type="button" class="btn mx-1 bg-primary btn-next" id="btn-next" aria-label="Next Word">Next</button>
     
         </div>
-    </div>
+   
     
     <script>
         document.querySelector(".card1").addEventListener("click", () => {

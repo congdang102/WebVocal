@@ -33,7 +33,10 @@
         @endif
         <!-- Page Content -->
         <main >
-            {{ $slot }}
+            <div class="container-fluid text-white">
+                {{ $slot }}
+            </div>
+           
         </main>
    
 </body>

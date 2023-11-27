@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="{{ asset('css/flashcard.css') }}">
 </head>
 <x-app-layout>
-    <div class="container-fluid text-white">
+  
         <div class="rounded bg-primary">
             <a href="/folder" style="text-decoration: none; color: inherit;">
-                <div id="header" class="row p-4  text-white border border-primary border-4-bottom">
+                <div id="header" class="row p-4  text-white ">
                     <div class="col-5">
                         <div class="row">
                             <div class="col-1">
@@ -85,7 +85,7 @@
             <button type="button" class="btn mx-1 bg-primary btn-next" id="btn-next" aria-label="Next Word">Next</button>
     
         </div>
-    </div>
+    
     
     <script>
         document.querySelector(".card1").addEventListener("click", () => {
