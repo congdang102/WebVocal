@@ -5,89 +5,88 @@
     <link rel="stylesheet" href="{{ asset('css/flashcard.css') }}">
 </head>
 <x-app-layout>
-    <div class="rounded bg-primary">
-        <a href="/folder" style="text-decoration: none; color: inherit;">
-            <div id="header" class="row p-4  text-white border border-primary border-4-bottom">
-                <div class="col-5">
-                    <div class="row">
-                        <div class="col-1">
-                            <i class="icon-undo text-white"></i>
-                        </div>
-                        <div class="col-4">
-                            <div>
-                                <div class="row fw-bold fs-5">
-                                    {{-- {{ $topic->TopicName }} --}}
-                                </div>
-                                <div class="row">
-                                    @php
-                                    $wordCount =0;
-                                    $wordLearned=0;
-                                @endphp
-                                @foreach ($folders as $folder)
-                                    @if ($folder->UserID == $userId  )
+    <div class="container-fluid text-white">
+        <div class="rounded bg-primary">
+            <a href="/folder" style="text-decoration: none; color: inherit;">
+                <div id="header" class="row p-4  text-white border border-primary border-4-bottom">
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="icon-undo text-white"></i>
+                            </div>
+                            <div class="col-4">
+                                <div>
+                                    <div class="row fw-bold fs-5">
+                                        {{-- {{ $topic->TopicName }} --}}
+                                    </div>
+                                    <div class="row">
                                         @php
-                                            $wordCount++;
-                                        @endphp                      
+                                        $wordCount =0;
+                                        $wordLearned=0;
+                                    @endphp
+                                    @foreach ($folders as $folder)
+                                        @if ($folder->UserID == $userId  )
+                                            @php
+                                                $wordCount++;
+                                            @endphp                      
+                                        @endif
+                                    @endforeach
+                                    @foreach ($folders as $folder)
+                                        @if ($folder->UserID == $userId  )
+                                            @foreach ($folderhistories as $folderhistory)
+                                            @if ($folder->WordID == $folderhistory->WordID)
+                                                    @php
+                                                    $wordLearned++;
+                                                    @endphp  
+                                            @endif
+                                              
+                                            @endforeach
+                                                            
                                     @endif
                                 @endforeach
-                                @foreach ($folders as $folder)
-                                    @if ($folder->UserID == $userId  )
-                                        @foreach ($folderhistories as $folderhistory)
-                                        @if ($folder->WordID == $folderhistory->WordID)
-                                                @php
-                                                $wordLearned++;
-                                                @endphp  
-                                        @endif
-                                          
-                                        @endforeach
-                                                        
-                                @endif
-                            @endforeach
-                                {{ $wordLearned }}/{{  $wordCount }}
+                                    {{ $wordLearned }}/{{  $wordCount }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-7">
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="card1 text-white">
-        <div class="front face">
-            <div class="word"></div>
-        </div>
-        <div class="back face">
-            <div>
-                <div class="row">
-                    <div class="col">
-                        <img src="" alt="" class="img-fluid mx-auto d-block" style="width: 3.5rem; height: 3.5rem;">
+                    <div class="col-7">
                     </div>
                 </div>
+            </a>
+        </div>
+        <div class="card1 text-white">
+            <div class="front face">
+                <div class="word"></div>
             </div>
-            <div class="meaning"></div>
-            <div id="btn-add" class="btn"> 
-                {{-- <button type="button" class="btn ">
-                    <i class="icon-folder-plus text-white"></i>
-                </button> --}}
+            <div class="back face">
+                <div>
+                    <div class="row">
+                        <div class="col">
+                            <img src="" alt="" class="img-fluid mx-auto d-block" style="width: 3.5rem; height: 3.5rem;">
+                        </div>
+                    </div>
+                </div>
+                <div class="meaning"></div>
+             
             </div>
         </div>
-    </div>
-    <div class="card2 text-white" style="display: none">
-        <div class="front2 face2 bg-info text-white">
-            <div class="word2">Congratuations! You have fishned everything!</div>
-            <div>
-                <button id="btn-browse-again" type="button" class="btn mx-1 bg-primary btn-reverse">Browers all again</button>
+        <div class="card2 text-white" style="display: none">
+            <div class="front2 face2 bg-info text-white">
+                <div class="word2">Congratuations! You have fishned everything!</div>
+                <div>
+                    <button id="btn-browse-again" type="button" class="btn mx-1 bg-primary btn-reverse">Browers all again</button>
+                </div>
             </div>
+            
         </div>
-        
+        <div class="text-center mt-5">
+            <button type="button" class="btn mx-1 bg-primary btn-back">Back</button>
+            <button type="button" class="btn mx-1 bg-primary btn-next" id="btn-next" aria-label="Next Word">Next</button>
+    
+        </div>
     </div>
-    <div class="text-center mt-5">
-        <button type="button" class="btn mx-1 bg-primary btn-back">Back</button>
-        <button type="button" class="btn mx-1 bg-primary btn-next" id="btn-next" aria-label="Next Word">Next</button>
-
-    </div>
+    
     <script>
         document.querySelector(".card1").addEventListener("click", () => {
             document.querySelector(".card1 .front").classList.toggle("flipped");
@@ -100,21 +99,18 @@
         });
     
         var words = @json($words);
-    var folders = @json($folders);
-    var folderhistories = @json($folderhistories);
-var currentIndex = 0;
-var userId = {{ $userId }};
-// Khởi tạo danh sách filteredWords
-var filteredWords = words.filter(function(word) {
-    return folders.some(function(folder) {
-        return word.WordID === folder.WordID && folder.UserID == userId && folderhistories.some(function(folderhistory) {
-            return word.WordID === folderhistory.WordID;
+        var folders = @json($folders);
+        var folderhistories = @json($folderhistories);
+        var currentIndex = 0;
+        var userId = {{ $userId }};
+        // Khởi tạo danh sách filteredWords
+        var filteredWords = words.filter(function(word) {
+            return folders.some(function(folder) {
+                return word.WordID === folder.WordID && folder.UserID == userId && folderhistories.some(function(folderhistory) {
+                    return word.WordID === folderhistory.WordID;
+                });
+            });
         });
-    });
-});
-
-
-
     
         var currentIndex = 0;
         function showWord(index) {
@@ -141,45 +137,45 @@ var filteredWords = words.filter(function(word) {
         $(".btn-back").show();
     });
 
-    var viewedWords = [];
-var currentIndex = 0;
+    // var viewedWords = [];
+        var currentIndex = 0;
 
-$("#btn-next").on("click", function() {
-    var userId = {{ $userId }};
+        $("#btn-next").on("click", function() {
+            var userId = {{ $userId }};
 
-    if (currentIndex < filteredWords.length) {
-        var currentWord = filteredWords[currentIndex];
-        var wordId = currentWord.WordID;
-        // Gửi dữ liệu lên máy chủ sử dụng Ajax
-        $.ajax({
-    type: "POST",
-    url: "/save-folderhistory",
-    data: {
-        _token: "{{ csrf_token() }}", // Đảm bảo bạn đang gửi token CSRF
-        wordId: wordId,
-        userId: userId,
-    },
-    success: function(response) {
-        // Xử lý kết quả nếu cần
-    },
-});
-
-
-        // Tiến hành hiển thị từ vựng tiếp theo
-        currentIndex++;
-        showWord(currentIndex);
-    }
-});
+            if (currentIndex < filteredWords.length) {
+                var currentWord = filteredWords[currentIndex];
+                var wordId = currentWord.WordID;
+                // Gửi dữ liệu lên máy chủ sử dụng Ajax
+        //         $.ajax({
+        //     type: "POST",
+        //     url: "/save-folderhistory",
+        //     data: {
+        //         _token: "{{ csrf_token() }}", // Đảm bảo bạn đang gửi token CSRF
+        //         wordId: wordId,
+        //         userId: userId,
+        //     },
+        //     success: function(response) {
+        //         // Xử lý kết quả nếu cần
+        //     },
+        // });
 
 
-    $(".btn-back").on("click", function() {
-        if (currentIndex > 0) {
-            currentIndex--;
+                // Tiến hành hiển thị từ vựng tiếp theo
+                currentIndex++;
+                showWord(currentIndex);
+            }
+        });
+
+
+            $(".btn-back").on("click", function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showWord(currentIndex);
+                }
+            });
+
             showWord(currentIndex);
-        }
-    });
-
-    showWord(currentIndex);
     </script>
     <br> <br>
     

@@ -59,55 +59,53 @@
         }
     }
     //Tim kiem tu vung
-    function searchWords(searchTerm) {
-    searchTerm = searchTerm.toLowerCase();
-    var displayedWordCount = 0;
+        function searchWords(searchTerm) {
+        searchTerm = searchTerm.toLowerCase();
+        var displayedWordCount = 0;
 
-    if (searchTerm === "") {
-        // Ô tìm kiếm trống, ẩn danh sách từ điển
-        $("#wordList").hide();
-    } else {
-        // Hiển thị danh sách từ điển và tìm kiếm kết quả
-        $("#wordList").show();
-        $(".word-container").each(function() {
-            var englishMeaning = $(this).find(".text-primary").text().toLowerCase();
+        if (searchTerm === "") {
+            // Ô tìm kiếm trống, ẩn danh sách từ điển
+            $("#wordList").hide();
+        } else {
+            // Hiển thị danh sách từ điển và tìm kiếm kết quả
+            $("#wordList").show();
+            $(".word-container").each(function() {
+                var englishMeaning = $(this).find(".text-primary").text().toLowerCase();
 
-            if (englishMeaning.includes(searchTerm) && displayedWordCount < 10) {
-                $(this).show();
-                displayedWordCount++;
-            } else {
-                $(this).hide();
-            }
-        });
+                if (englishMeaning.includes(searchTerm) && displayedWordCount < 10) {
+                    $(this).show();
+                    displayedWordCount++;
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
     }
-}
 
 
-    //Them tu vung
-    var words = @json($words);
+        //Them tu vung
+        var words = @json($words);
         var folder = @json($folders);
-
 
         @foreach($words as $word)
             $(".add-button-{{ $word->WordID }}").on("click", function() {
                 var userId = {{ $userId }};
                 var wordId = $(this).data("word-id");
 
-                console.log(userId);
-                console.log(wordId);
+                
 
-                // Gửi dữ liệu lên máy chủ sử dụng Ajax
-                $.ajax({
+                
+            $.ajax({
             type: "POST",
             url: "/save-folder",
             
             data: {
-                _token: "{{ csrf_token() }}", // Đảm bảo bạn đang gửi token CSRF
+                _token: "{{ csrf_token() }}", 
                 wordId: wordId,
                 userId: userId,
             },
             success: function(response) {
-                // Xử lý kết quả nếu cần
+                
             },
         });
 

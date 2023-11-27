@@ -17,7 +17,7 @@
         </div>
     </div>
   </div>
-<div class="container text-white">
+<div class="container-fluid text-white">
 <div class="row">
 <div class="col-2"></div>
 <div class="col-8">

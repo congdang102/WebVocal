@@ -53,11 +53,7 @@
                 </div>
             </div>
             <div class="meaning"></div>
-            <div id="btn-add" class="btn"> 
-                {{-- <button type="button" class="btn ">
-                    <i class="icon-folder-plus text-white"></i>
-                </button> --}}
-            </div>
+          
         </div>
     </div>
     <div class="card2 text-white" style="display: none">

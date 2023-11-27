@@ -53,11 +53,7 @@
                 </div>
             </div>
             <div class="meaning"></div>
-            <div id="btn-add" class="btn"> 
-                <button type="button" class="btn ">
-                    <i class="icon-folder-plus text-white"></i>
-                </button>
-            </div>
+           
         </div>
     </div>
     <div class="card2 text-white" style="display: none">
@@ -86,85 +82,85 @@
         });
     
         var words = @json($words);
-var histories = @json($histories);
+        var histories = @json($histories);
 
-var currentIndex = 0;
-
-// Khởi tạo danh sách filteredWords
-var filteredWords = words.filter(function(word) {
-    return word.TopicID === {{ $topic->TopicID }} &&
-        histories.some(function(history) {
-            return word.WordID === history.WordID;
-        });
-});
-
-
-    
         var currentIndex = 0;
-        function showWord(index) {
-        if (index >= 0 && index < filteredWords.length) {
-            $(".word").text(filteredWords[index].EnglishMeaning);
-            $(".meaning").text(filteredWords[index].VietNamMeaning);
-            $(".img-fluid").attr("src", filteredWords[index].Image);
-        } else {
-            if (index >= filteredWords.length) {
-                // Hiển thị card2 nếu đã vượt quá số lượng từ vựng
-                $(".card1").hide();
-                $(".card2").show();
-                $(".btn-next").hide();
-                $(".btn-back").hide();
+
+        // Khởi tạo danh sách filteredWords
+        var filteredWords = words.filter(function(word) {
+            return word.TopicID === {{ $topic->TopicID }} &&
+                histories.some(function(history) {
+                    return word.WordID === history.WordID;
+                });
+        });
+
+
+            
+                var currentIndex = 0;
+                function showWord(index) {
+                if (index >= 0 && index < filteredWords.length) {
+                    $(".word").text(filteredWords[index].EnglishMeaning);
+                    $(".meaning").text(filteredWords[index].VietNamMeaning);
+                    $(".img-fluid").attr("src", filteredWords[index].Image);
+                } else {
+                    if (index >= filteredWords.length) {
+                        // Hiển thị card2 nếu đã vượt quá số lượng từ vựng
+                        $(".card1").hide();
+                        $(".card2").show();
+                        $(".btn-next").hide();
+                        $(".btn-back").hide();
+                    }
+                }
             }
-        }
-    }
-        $("#btn-browse-again").on("click", function() {
-        currentIndex = 0;
-        showWord(currentIndex);
-        $(".card1").show();
-        $(".card2").hide();
-        $(".btn-next").show();
-        $(".btn-back").show();
-    });
+                $("#btn-browse-again").on("click", function() {
+                currentIndex = 0;
+                showWord(currentIndex);
+                $(".card1").show();
+                $(".card2").hide();
+                $(".btn-next").show();
+                $(".btn-back").show();
+            });
 
-    var viewedWords = [];
-var currentIndex = 0;
+            var viewedWords = [];
+        var currentIndex = 0;
 
-$("#btn-next").on("click", function() {
-    var userId = {{ $userId }};
+        $("#btn-next").on("click", function() {
+            var userId = {{ $userId }};
 
-    if (currentIndex < filteredWords.length) {
-        var currentWord = filteredWords[currentIndex];
-        var wordId = currentWord.WordID;
-        // Gửi dữ liệu lên máy chủ sử dụng Ajax
-        $.ajax({
-    type: "POST",
-    url: "/save-history",
-    data: {
-        _token: "{{ csrf_token() }}", // Đảm bảo bạn đang gửi token CSRF
-        wordId: wordId,
-        userId: userId,
-    },
-    success: function(response) {
-        // Xử lý kết quả nếu cần
-    },
-});
+            if (currentIndex < filteredWords.length) {
+                var currentWord = filteredWords[currentIndex];
+                var wordId = currentWord.WordID;
+                // Gửi dữ liệu lên máy chủ sử dụng Ajax
+        //         $.ajax({
+        //     type: "POST",
+        //     url: "/save-history",
+        //     data: {
+        //         _token: "{{ csrf_token() }}", // Đảm bảo bạn đang gửi token CSRF
+        //         wordId: wordId,
+        //         userId: userId,
+        //     },
+        //     success: function(response) {
+        //         // Xử lý kết quả nếu cần
+        //     },
+        // });
 
 
-        // Tiến hành hiển thị từ vựng tiếp theo
-        currentIndex++;
-        showWord(currentIndex);
-    }
-});
+                // Tiến hành hiển thị từ vựng tiếp theo
+                currentIndex++;
+                showWord(currentIndex);
+            }
+        });
 
 
-    $(".btn-back").on("click", function() {
-        if (currentIndex > 0) {
-            currentIndex--;
+            $(".btn-back").on("click", function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showWord(currentIndex);
+                }
+            });
+
             showWord(currentIndex);
-        }
-    });
-
-    showWord(currentIndex);
-    </script>
-    <br> <br>
+            </script>
+            <br> <br>
     
 </x-app-layout>

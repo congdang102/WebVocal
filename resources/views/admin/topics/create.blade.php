@@ -1,5 +1,5 @@
 <x-app-layout>
-    <h1 class="mb-0">Add SubCategory</h1>
+    <h1 class="mb-0">Add Topic</h1>
     <hr />
     <form action="{{ route('admin.topics.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

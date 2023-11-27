@@ -1,6 +1,6 @@
 <x-app-layout>
     
-    <h1 class="mb-0 fw-bold">Edit Topic</h1>
+    <h1 class="mb-0 fw-bold">Edit Word</h1>
     <hr />
     <form action="{{ route('admin.words.update', $word->WordID) }}" method="POST" enctype="multipart/form-data">
         @csrf
