@@ -131,8 +131,5 @@
                 // Tiến hành hiển thị từ vựng tiếp theo
             });
         @endforeach
-
-
-
     </script>
 </x-app-layout>
