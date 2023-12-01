@@ -12,6 +12,8 @@ class Topic extends Model
     protected $table = 'topics'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
 
     protected $primaryKey = 'TopicID'; // Đặt trường làm khóa chính
+
+     // Các trường có thể gán giá trị
     protected $fillable = [
         'TopicName',
         'Image',

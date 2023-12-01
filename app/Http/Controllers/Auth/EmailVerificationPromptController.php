@@ -11,10 +11,11 @@ use Illuminate\View\View;
 class EmailVerificationPromptController extends Controller
 {
     /**
-     * Display the email verification prompt.
+     * Hiển thị cửa sổ nhắc xác nhận email.
      */
     public function __invoke(Request $request): RedirectResponse|View
     {
+        // Kiểm tra xem người dùng đã xác nhận email chưa
         return $request->user()->hasVerifiedEmail()
                     ? redirect()->intended(RouteServiceProvider::HOME)
                     : view('auth.verify-email');

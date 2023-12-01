@@ -12,12 +12,14 @@ class SubCategory extends Model
     protected $table = 'subcategories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
 
     protected $primaryKey = 'SubCategoryID'; // Đặt trường làm khóa chính
+
+     // Các trường có thể gán giá trị
     protected $fillable = [
         'CategoryID',
         'SubCategoryName',
         'Image',
     ];
- // Các trường có thể gán giá trị
+
 
     public $timestamps = true; // Tắt tự động thêm timestamp (created_at và updated_at)
 

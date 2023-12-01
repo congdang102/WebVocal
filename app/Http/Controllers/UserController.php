@@ -8,16 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    /**
+     * Hiển thị danh sách người dùng.
+     */
     public function index()
     {
-        $users = User::orderBy('created_at', 'DESC')->get(); // Thay $user thành $users
+        $users = User::orderBy('created_at', 'DESC')->get(); // Sắp xếp người dùng theo thời gian tạo giảm dần
     
         return view('admin.users.index', compact('users'));
     }
     
-  
     /**
-     * Show the form for creating a new resource.
+     * Hiển thị form để tạo người dùng mới.
      */
     public function create()
     {
@@ -25,17 +27,17 @@ class UserController extends Controller
     }
   
     /**
-     * Store a newly created resource in storage.
+     * Lưu người dùng mới vào cơ sở dữ liệu.
      */
     public function store(Request $request)
     {
         User::create($request->all());
  
-        return redirect()->route('users')->with('success', 'User added successfully');
+        return redirect()->route('users')->with('success', 'Người dùng đã được thêm thành công');
     }
   
     /**
-     * Display the specified resource.
+     * Hiển thị thông tin chi tiết của người dùng.
      */
     public function show(string $id)
     {
@@ -45,7 +47,7 @@ class UserController extends Controller
     }
   
     /**
-     * Show the form for editing the specified resource.
+     * Hiển thị form để chỉnh sửa thông tin của người dùng.
      */
     public function edit(string $id)
     {
@@ -55,7 +57,7 @@ class UserController extends Controller
     }
   
     /**
-     * Update the specified resource in storage.
+     * Cập nhật thông tin của người dùng trong cơ sở dữ liệu.
      */
     public function update(Request $request, string $id)
     {
@@ -63,27 +65,25 @@ class UserController extends Controller
   
         $user->update($request->all());
   
-        return redirect()->route('users')->with('success', 'user updated successfully');
+        return redirect()->route('users')->with('success', 'Người dùng đã được cập nhật thành công');
     }
   
     /**
-     * Remove the specified resource from storage.
+     * Xóa người dùng khỏi cơ sở dữ liệu.
      */
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
     
-        // Lấy ID của user bị xóa
+        // Lấy ID của người dùng bị xóa
         $deletedUserId = $user->id;
     
-        // Xóa user
+        // Xóa người dùng
         $user->delete();
     
-        // Cập nhật IDs cho tất cả user có ID lớn hơn user bị xóa
+        // Cập nhật IDs cho tất cả người dùng có ID lớn hơn người dùng bị xóa
         User::where('id', '>', $deletedUserId)->decrement('id');
     
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
+        return redirect()->route('admin.users.index')->with('success', 'Người dùng đã được xóa thành công');
     }
-    
-   
 }

@@ -73,15 +73,8 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
     
-        // Lấy ID của category bị xóa
-        $deletedCategoryId = $category->CategoryID;
-    
         // Xóa category
         $category->delete();
-    
-        // Cập nhật IDs cho tất cả category có ID lớn hơn category bị xóa
-        // Category::where('CategoryID', '>', $deletedCategoryId)->increment('CategoryID');
-    
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully');
     }
     

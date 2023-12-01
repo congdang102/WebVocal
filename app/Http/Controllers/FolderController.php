@@ -46,13 +46,13 @@ class FolderController extends Controller
         $wordId = $request->input('wordId');
         $userId = $request->input('userId');
     
-        // Check if the word with the given WordID has already been saved by the user
+       
         $existingFolder = Folder::where('WordID', $wordId)
             ->where('UserID', $userId)
             ->first();
     
         if (!$existingFolder) {
-            // The word hasn't been saved by the user, so save it
+           
             Folder::create([
                 'WordID' => $wordId,
                 'UserID' => $userId,
@@ -68,15 +68,8 @@ class FolderController extends Controller
     {
         $folder = Folder::findOrFail($id);
     
-        // Lấy ID của category bị xóa
-        // $deletedFolderId = $folder->FolderID;
-    
-        // Xóa category
         $folder->delete();
-    
-        // Cập nhật IDs cho tất cả category có ID lớn hơn category bị xóa
-        // Category::where('CategoryID', '>', $deletedCategoryId)->increment('CategoryID');
-    
+        
         return redirect()->route('folder')->with('success', 'Word deleted successfully');
     }
 }

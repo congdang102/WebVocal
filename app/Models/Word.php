@@ -12,6 +12,9 @@ class Word extends Model
     protected $table = 'words'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
 
     protected $primaryKey = 'WordID'; // Đặt trường làm khóa chính
+
+     // Các trường có thể gán giá trị
+
     protected $fillable = [
         'TopicID',
         'EnglishMeaning',
@@ -19,7 +22,6 @@ class Word extends Model
         'Image',
         
     ];
- // Các trường có thể gán giá trị
 
     public $timestamps = true; // Tắt tự động thêm timestamp (created_at và updated_at)
 

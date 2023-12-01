@@ -9,18 +9,21 @@ class Folder extends Model
 {
     use HasFactory;
 
-    protected $table = 'folder'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
+    protected $table = 'folder'; // Tên bảng tương ứng trong cơ sở dữ liệu
 
-    protected $primaryKey = 'FolderID'; // Đặt trường làm khóa chính
+    protected $primaryKey = 'FolderID'; // Trường làm khóa chính
+    
+    
+    // Các trường có thể gán giá trị
     protected $fillable = [
         'WordID',
         'UserID',
-        
     ];
- // Các trường có thể gán giá trị
+    
+    
 
-    public $timestamps = true; // Tắt tự động thêm timestamp (created_at và updated_at)
+    public $timestamps = true; // Tự động thêm timestamp (created_at và updated_at)
 
-    // Các quan hệ hoặc phương thức khác có thể được định nghĩa ở đây
-
+    
 }
+

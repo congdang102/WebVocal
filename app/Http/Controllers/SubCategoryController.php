@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class SubCategoryController extends Controller
 {
     //
+    // Hiển thị danh sách các SubCategory được phân trang
     public function index()
     {
         $subcategories = SubCategory::orderBy('created_at', 'ASC')->paginate(10); // Thay $category thành $subcategories
@@ -15,24 +16,24 @@ class SubCategoryController extends Controller
         return view('admin.subcategories.index', compact('subcategories'));
     }
     
-  
     /**
-     * Show the form for creating a new resource.
+     * Hiển thị form để tạo mới một resource.
      */
     public function create()
     {
+        // Lấy danh sách các categories để hiển thị trong dropdown ở form tạo mới
         $categories = Category::orderBy('created_at', 'ASC')->get();
         return view('admin.subcategories.create', compact('categories'));
     }
   
     /**
-     * Store a newly created resource in storage.
+     * Lưu một resource mới vào storage.
      */
     public function store(Request $request)
     {
-       
+        // Xử lý upload hình ảnh và lưu dữ liệu của SubCategory
         $filename = '';
-        if($request ->hasFile('Image')) {
+        if($request->hasFile('Image')) {
             $filename = $request->getSchemeAndHttpHost().'/storage/SubCategory/'.time() .'.'. $request->Image->extension();
             $request->Image->move(public_path('/storage/SubCategory/'), $filename);
         }
@@ -41,73 +42,76 @@ class SubCategoryController extends Controller
             'CategoryID'=> $request->CategoryID,
             'SubCategoryName' => $request->SubCategoryName,
             'Image'=>$filename,
-
         ]);
+        
         return redirect()->route('admin.subcategories.index')->with('success', 'SubCategory added successfully');
     }
   
     /**
-     * Display the specified resource.
+     * Hiển thị thông tin của resource cụ thể.
      */
     public function show(string $id)
     {
+        // Lấy và hiển thị thông tin chi tiết của một SubCategory cụ thể
         $subcategory = SubCategory::findOrFail($id);
-  
         return view('admin.subcategories.show', compact('subcategory'));
     }
   
     /**
-     * Show the form for editing the specified resource.
+     * Hiển thị form để chỉnh sửa resource cụ thể.
      */
     public function edit(string $id)
     {
+        // Lấy thông tin của SubCategory và danh sách categories để hiển thị trong dropdown ở form chỉnh sửa
         $subcategory = SubCategory::findOrFail($id);
         $categories = Category::orderBy('created_at', 'ASC')->get();
         return view('admin.subcategories.edit', compact('subcategory','categories'));
     }
   
     /**
-     * Update the specified resource in storage.
+     * Cập nhật resource cụ thể trong storage.
      */
     public function update(Request $request, string $id)
     {
+        // Cập nhật dữ liệu của SubCategory, xử lý upload hình ảnh, và xóa hình ảnh cũ nếu có
         $subcategory = SubCategory::findOrFail($id);
-        
-        $filename = '';
-        if($request ->hasFile('Image')) {
-            $filename = $request->getSchemeAndHttpHost().'/storage/SubCategory/'.time() .'.'. $request->Image->extension();
+
+        if ($request->hasFile('Image')) {
+            // Xử lý upload hình ảnh mới
+            $filename = $request->getSchemeAndHttpHost() . '/storage/SubCategory/' . time() . '.' . $request->Image->extension();
             $request->Image->move(public_path('/storage/SubCategory/'), $filename);
+
+            // Xóa hình ảnh cũ nếu tồn tại
+            if ($subcategory->Image) {
+                $oldImagePath = public_path(str_replace($request->getSchemeAndHttpHost(), '', $subcategory->Image));
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            // Cập nhật trường Image với tên file hình ảnh mới
+            $subcategory->Image = $filename;
         }
 
-        // Kiểm tra nếu có tệp ảnh mới được tải lên
-        // Cập nhật các trường khác của SubCategory
+        // Cập nhật các trường dữ liệu khác
         $subcategory->CategoryID = $request->CategoryID;
         $subcategory->SubCategoryName = $request->SubCategoryName;
-        $subcategory->Image = $filename;
-    
-        // Lưu cập nhật vào cơ sở dữ liệu
+
+        // Lưu các thay đổi vào cơ sở dữ liệu
         $subcategory->save();
-  
-        return redirect()->route('admin.subcategories.index')->with('success', 'subcategory updated successfully');
+
+        return redirect()->route('admin.subcategories.index')->with('success', 'Subcategory updated successfully');
     }
-  
+
     /**
-     * Remove the specified resource from storage.
+     * Xóa resource cụ thể khỏi storage.
      */
     public function destroy(string $id)
     {
+        // Xóa một SubCategory
         $subcategory = SubCategory::findOrFail($id);
-    
-        // Lấy ID của category bị xóa
-        $deletedCategoryId = $subcategory->SubCategoryID;
-    
-        // Xóa category
         $subcategory->delete();
-    
-        // Cập nhật IDs cho tất cả category có ID lớn hơn category bị xóa
-        // SubCategory::where('SubCategoryID', '>', $deletedCategoryId)->increment('SubCategoryID');
-    
+
         return redirect()->route('admin.subcategories.index')->with('success', 'SubCategory deleted successfully');
     }
-    
 }

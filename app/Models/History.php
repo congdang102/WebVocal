@@ -12,12 +12,14 @@ class History extends Model
     protected $table = 'histories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
 
     protected $primaryKey = 'id'; // Đặt trường làm khóa chính
+
+    // Các trường có thể gán giá trị
     protected $fillable = [
         'WordID',
         'UserID',
         
     ];
- // Các trường có thể gán giá trị
+ 
 
     public $timestamps = true; // Tắt tự động thêm timestamp (created_at và updated_at)
 

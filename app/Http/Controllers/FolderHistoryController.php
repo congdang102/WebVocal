@@ -11,31 +11,33 @@ class FolderHistoryController extends Controller
 {
     //
     public function store(Request $request)
-{
-    $wordId = $request->input('wordId');
-    $userId = $request->input('userId');
+    {
+        // Nhận thông tin từ request
+        $wordId = $request->input('wordId');
+        $userId = $request->input('userId');
 
-    // Check if the word with the given WordID has already been saved by the user
-    $existingFolder = FolderHistory::where('WordID', $wordId)
-        ->where('UserID', $userId)
-        ->first();
+        // Kiểm tra xem từ vựng với WordID đã cho đã được người dùng lưu trữ trước đó chưa
+        $existingFolder = FolderHistory::where('WordID', $wordId)
+            ->where('UserID', $userId)
+            ->first();
 
-    if (!$existingFolder) {
-        // The word hasn't been saved by the user, so save it
-        FolderHistory::create([
-            'WordID' => $wordId,
-            'UserID' => $userId,
-        ]);
-        History::create([
-            'WordID' => $wordId,
-            'UserID' => $userId,
-        ]);
+        if (!$existingFolder) {
+            // Nếu từ vựng chưa được lưu trữ bởi người dùng, thực hiện lưu trữ
+            FolderHistory::create([
+                'WordID' => $wordId,
+                'UserID' => $userId,
+            ]);
 
+            // Lưu thêm vào bảng History
+            History::create([
+                'WordID' => $wordId,
+                'UserID' => $userId,
+            ]);
 
-        return response()->json(['message' => 'History saved successfully']);
-    } else {
-        // The word has already been saved by the user, return a response indicating that
-        return response()->json(['message' => 'Word already exists in history']);
+            return response()->json(['message' => 'Lịch sử đã được lưu thành công']);
+        } else {
+            // Nếu từ vựng đã được lưu trữ bởi người dùng, trả về thông báo tương ứng
+            return response()->json(['message' => 'Từ vựng đã tồn tại trong lịch sử']);
+        }
     }
-}
 }

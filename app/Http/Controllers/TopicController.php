@@ -12,104 +12,119 @@ class TopicController extends Controller
     //
     public function index()
     {
+        // Lấy danh sách các chủ đề từ cơ sở dữ liệu và phân trang chúng
         $topics = Topic::orderBy('created_at', 'ASC')->paginate(10); // Thay $category thành $topics
     
+        // Trả về view 'admin.topics.index' với danh sách chủ đề
         return view('admin.topics.index', compact('topics'));
     }
     
-  
     /**
-     * Show the form for creating a new resource.
+     * Hiển thị form để tạo chủ đề mới.
      */
     public function create()
     {
+        // Lấy danh sách các danh mục con để hiển thị trong form tạo mới
         $subcategories = SubCategory::orderBy('created_at', 'ASC')->get();
         return view('admin.topics.create', compact('subcategories'));
     }
   
     /**
-     * Store a newly created resource in storage.
+     * Lưu chủ đề mới vào cơ sở dữ liệu.
      */
     public function store(Request $request)
     {
-       
+        // Xử lý và lưu hình ảnh nếu được tải lên
         $filename = '';
-        if($request ->hasFile('Image')) {
+        if($request->hasFile('Image')) {
             $filename = $request->getSchemeAndHttpHost().'/storage/Topic/'.time() .'.'. $request->Image->extension();
             $request->Image->move(public_path('/storage/Topic/'), $filename);
         }
 
+        // Tạo mới một chủ đề trong cơ sở dữ liệu
         $topics = Topic::create([
             'SubCategoryID'=> $request->SubCategoryID,
             'TopicName' => $request->TopicName,
             'Image'=>$filename,
-
         ]);
+
+        // Chuyển hướng về trang danh sách chủ đề với thông báo thành công
         return redirect()->route('admin.topics.index')->with('success', 'Topic added successfully');
     }
   
     /**
-     * Display the specified resource.
+     * Hiển thị thông tin chi tiết của chủ đề.
      */
     public function show(string $id)
     {
+        // Lấy thông tin chi tiết của chủ đề dựa trên ID
         $topic = Topic::findOrFail($id);
   
+        // Trả về view 'admin.topics.show' với thông tin chi tiết của chủ đề
         return view('admin.topics.show', compact('topic'));
     }
   
     /**
-     * Show the form for editing the specified resource.
+     * Hiển thị form để chỉnh sửa thông tin của chủ đề.
      */
     public function edit(string $id)
     {
+        // Lấy thông tin chi tiết của chủ đề và danh sách danh mục con
         $topic = Topic::findOrFail($id);
         $subcategories = SubCategory::orderBy('created_at', 'ASC')->get();
+        
+        // Trả về view 'admin.topics.edit' với thông tin chi tiết và danh sách danh mục con
         return view('admin.topics.edit', compact('subcategories','topic'));
     }
   
     /**
-     * Update the specified resource in storage.
+     * Cập nhật thông tin của chủ đề trong cơ sở dữ liệu.
      */
     public function update(Request $request, string $id)
     {
+        // Lấy thông tin chi tiết của chủ đề dựa trên ID
         $topic = Topic::findOrFail($id);
-        
-        $filename = '';
-        if($request ->hasFile('Image')) {
-            $filename = $request->getSchemeAndHttpHost().'/storage/Topic/'.time() .'.'. $request->Image->extension();
+
+        // Kiểm tra nếu có hình ảnh mới được tải lên
+        if ($request->hasFile('Image')) {
+            $filename = $request->getSchemeAndHttpHost() . '/storage/Topic/' . time() . '.' . $request->Image->extension();
             $request->Image->move(public_path('/storage/Topic/'), $filename);
+
+            // Xóa hình ảnh cũ nếu tồn tại
+            if ($topic->Image) {
+                $oldImagePath = public_path(str_replace($request->getSchemeAndHttpHost(), '', $topic->Image));
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            // Cập nhật trường Image với tên file hình ảnh mới
+            $topic->Image = $filename;
         }
 
-        // Kiểm tra nếu có tệp ảnh mới được tải lên
-        // Cập nhật các trường khác của Topic
+        // Cập nhật các trường thông tin khác
         $topic->SubCategoryID = $request->SubCategoryID;
         $topic->TopicName = $request->TopicName;
-        $topic->Image = $filename;
-    
-        // Lưu cập nhật vào cơ sở dữ liệu
+
+        // Lưu các thay đổi vào cơ sở dữ liệu
         $topic->save();
-  
-        return redirect()->route('admin.topics.index')->with('success', 'topic updated successfully');
+
+        // Chuyển hướng về trang danh sách chủ đề với thông báo thành công
+        return redirect()->route('admin.topics.index')->with('success', 'Topic updated successfully');
     }
-  
+
     /**
-     * Remove the specified resource from storage.
+     * Xóa chủ đề khỏi cơ sở dữ liệu.
      */
     public function destroy(string $id)
     {
+        // Lấy thông tin chi tiết của chủ đề dựa trên ID
         $topic = Topic::findOrFail($id);
-    
-        // Lấy ID của category bị xóa
-        $deletedTopicId = $topic->TopicID;
-    
-        // Xóa category
+        
+        // Xóa chủ đề
         $topic->delete();
     
-        // Cập nhật IDs cho tất cả category có ID lớn hơn category bị xóa
-        // Topic::where('TopicID', '>', $deletedTopicId)->increment('TopicID');
-    
+        // Chuyển hướng về trang danh sách chủ đề với thông báo thành công
         return redirect()->route('admin.topics.index')->with('success', 'Topic deleted successfully');
     }
-    
 }

@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Các thuộc tính có thể gán giá trị thông qua phương thức mass assignment.
      *
      * @var array<int, string>
      */
@@ -24,7 +24,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Các thuộc tính sẽ được ẩn khi đối tượng được chuyển đổi thành dạng mảng hoặc JSON.
      *
      * @var array<int, string>
      */
@@ -34,7 +34,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Các thuộc tính sẽ được chuyển đổi sang các kiểu dữ liệu cụ thể.
      *
      * @var array<string, string>
      */

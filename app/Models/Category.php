@@ -9,17 +9,17 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
+    // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu 
+    protected $table = 'categories';
 
-    protected $primaryKey = 'CategoryID'; // Đặt trường làm khóa chính
+    // Đặt trường làm khóa chính
+    protected $primaryKey = 'CategoryID';
 
+    // Các trường có thể gán giá trị
     protected $fillable = [
         'CategoryName',
     ];
- // Các trường có thể gán giá trị
 
-    public $timestamps = true; // Tắt tự động thêm timestamp (created_at và updated_at)
-
-    // Các quan hệ hoặc phương thức khác có thể được định nghĩa ở đây
-
+    // Tắt tự động thêm timestamp (created_at và updated_at)
+    public $timestamps = true;
 }
