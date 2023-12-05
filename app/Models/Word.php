@@ -9,7 +9,7 @@ class Word extends Model
 {
     use HasFactory;
 
-    protected $table = 'words'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
+    protected $table = 'words'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu 
 
     protected $primaryKey = 'WordID'; // Đặt trường làm khóa chính
 

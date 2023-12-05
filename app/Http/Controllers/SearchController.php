@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     //
     public function search(Request $request) {
-        // Lấy tất cả các từ và các từ vựng trong thư mục từ cơ sở dữ liệu
+        // Lấy tất cả các từ vựng trong Word và các từ vựng trong Folder từ cơ sở dữ liệu
         $words = Word::get();
         $folders = Folder::get();
         

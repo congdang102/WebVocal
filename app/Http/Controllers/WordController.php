@@ -13,7 +13,7 @@ class WordController extends Controller
     // Hiển thị danh sách từ phân trang.
     public function index()
     {
-        $words = Word::orderBy('created_at', 'ASC')->paginate(10); // Thay $category thành $words
+        $words = Word::orderBy('created_at', 'ASC')->paginate(10); 
     
         return view('admin.words.index', compact('words'));
     }
@@ -58,13 +58,13 @@ class WordController extends Controller
     /**
      * Hiển thị nguồn dữ liệu được chỉ định.
      */
-    public function show(string $id)
-    {
-        // Tìm và hiển thị chi tiết của một từ cụ thể.
-        $word = Word::findOrFail($id);
+    // public function show(string $id)
+    // {
+    //     // Tìm và hiển thị chi tiết của một từ cụ thể.
+    //     $word = Word::findOrFail($id);
   
-        return view('admin.words.show', compact('word'));
-    }
+    //     return view('admin.words.show', compact('word'));
+    // }
   
     /**
      * Hiển thị biểu mẫu để chỉnh sửa nguồn dữ liệu được chỉ định.

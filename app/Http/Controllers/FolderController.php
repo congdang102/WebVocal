@@ -43,33 +43,40 @@ class FolderController extends Controller
     }
     public function store(Request $request)
     {
+        // Lấy giá trị của wordId và userId từ request
         $wordId = $request->input('wordId');
         $userId = $request->input('userId');
-    
-       
+
+        // Kiểm tra xem có Folder nào tồn tại với WordID và UserID tương ứng không
         $existingFolder = Folder::where('WordID', $wordId)
             ->where('UserID', $userId)
             ->first();
-    
+
+        // Nếu Folder chưa tồn tại, tạo mới và lưu vào cơ sở dữ liệu
         if (!$existingFolder) {
-           
             Folder::create([
                 'WordID' => $wordId,
                 'UserID' => $userId,
             ]);
-    
-            return response()->json(['message' => 'History saved successfully']);
+
+            // Trả về thông báo JSON nếu lưu thành công
+            return response()->json(['message' => 'Lịch sử đã được lưu thành công']);
         } else {
-            // The word has already been saved by the user, return a response indicating that
-            return response()->json(['message' => 'Word already exists in history']);
+            // Nếu từ đã được người dùng lưu trước đó, trả về thông báo JSON
+            return response()->json(['message' => 'Từ đã tồn tại trong lịch sử']);
         }
     }
+
     public function destroy(string $id)
     {
+        // Tìm kiếm và lấy thông tin từ vựng trong thư mục dựa trên ID
         $folder = Folder::findOrFail($id);
-    
+
+        // Xóa thư mục khỏi cơ sở dữ liệu
         $folder->delete();
         
-        return redirect()->route('folder')->with('success', 'Word deleted successfully');
+        // Chuyển hướng người dùng về trang danh sách thư mục và thông báo xóa thành công
+        return redirect()->route('folder')->with('success', 'Thư mục đã được xóa thành công');
     }
+
 }

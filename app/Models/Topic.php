@@ -9,7 +9,7 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $table = 'topics'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
+    protected $table = 'topics'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu 
 
     protected $primaryKey = 'TopicID'; // Đặt trường làm khóa chính
 

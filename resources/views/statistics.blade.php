@@ -92,7 +92,6 @@
                                 <i class="icon-history text-primary"></i>
                             </div>
                             <div class="col-11">
-        
                                 @php
                                 $wordCount = 0; 
                                 $earliestLearningDate = null; 
@@ -103,20 +102,15 @@
                                 @foreach ($histories as $history)
                                     @if ($history->UserID == $userId)
                                         @php
-                                           
                                             if (!in_array($history->WordID, $uniqueWordIds)) {
                                                 $wordCount++; 
                                                 $uniqueWordIds[] = $history->WordID; 
-                                            }
-                                
-                                          
+                                            } 
                                             $currentLearningDate = $history->created_at->toDateString();
                                 
                                             if ($earliestLearningDate === null || $currentLearningDate < $earliestLearningDate) {
                                                 $earliestLearningDate = $currentLearningDate; 
                                             }
-                                
-                                           
                                             if ($prevLearningDate !== null && $currentLearningDate != date('Y-m-d', strtotime('+1 day', strtotime($prevLearningDate)))) {
                                                 $currentStreak = 0; 
                                             }

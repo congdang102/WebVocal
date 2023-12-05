@@ -55,14 +55,14 @@ class TopicController extends Controller
     /**
      * Hiển thị thông tin chi tiết của chủ đề.
      */
-    public function show(string $id)
-    {
-        // Lấy thông tin chi tiết của chủ đề dựa trên ID
-        $topic = Topic::findOrFail($id);
+    // public function show(string $id)
+    // {
+    //     // Lấy thông tin chi tiết của chủ đề dựa trên ID
+    //     $topic = Topic::findOrFail($id);
   
-        // Trả về view 'admin.topics.show' với thông tin chi tiết của chủ đề
-        return view('admin.topics.show', compact('topic'));
-    }
+    //     // Trả về view 'admin.topics.show' với thông tin chi tiết của chủ đề
+    //     return view('admin.topics.show', compact('topic'));
+    // }
   
     /**
      * Hiển thị form để chỉnh sửa thông tin của chủ đề.

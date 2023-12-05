@@ -9,7 +9,7 @@ class SubCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'subcategories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
+    protected $table = 'subcategories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu 
 
     protected $primaryKey = 'SubCategoryID'; // Đặt trường làm khóa chính
 

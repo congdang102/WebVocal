@@ -11,7 +11,7 @@ class SubCategoryController extends Controller
     // Hiển thị danh sách các SubCategory được phân trang
     public function index()
     {
-        $subcategories = SubCategory::orderBy('created_at', 'ASC')->paginate(10); // Thay $category thành $subcategories
+        $subcategories = SubCategory::orderBy('created_at', 'ASC')->paginate(10); 
     
         return view('admin.subcategories.index', compact('subcategories'));
     }
@@ -32,30 +32,38 @@ class SubCategoryController extends Controller
     public function store(Request $request)
     {
         // Xử lý upload hình ảnh và lưu dữ liệu của SubCategory
+    
+        // Kiểm tra xem có file hình ảnh được gửi lên không
         $filename = '';
-        if($request->hasFile('Image')) {
-            $filename = $request->getSchemeAndHttpHost().'/storage/SubCategory/'.time() .'.'. $request->Image->extension();
+        if ($request->hasFile('Image')) {
+            // Đặt tên file mới bằng thời gian hiện tại để tránh trùng lặp
+            $filename = $request->getSchemeAndHttpHost().'/storage/SubCategory/'.time().'.'.$request->Image->extension();
+            
+            // Di chuyển file hình ảnh vào thư mục lưu trữ (public/storage/SubCategory/)
             $request->Image->move(public_path('/storage/SubCategory/'), $filename);
         }
-
+    
+        // Tạo mới một bản ghi SubCategory trong cơ sở dữ liệu
         $subcategories = SubCategory::create([
-            'CategoryID'=> $request->CategoryID,
-            'SubCategoryName' => $request->SubCategoryName,
-            'Image'=>$filename,
+            'CategoryID' => $request->CategoryID,         // Lấy giá trị từ trường CategoryID của biểu mẫu
+            'SubCategoryName' => $request->SubCategoryName, // Lấy giá trị từ trường SubCategoryName của biểu mẫu
+            'Image' => $filename,                          // Lưu đường dẫn file hình ảnh vào cơ sở dữ liệu
         ]);
-        
+    
+        // Chuyển hướng người dùng về trang danh sách SubCategory và hiển thị thông báo thành công
         return redirect()->route('admin.subcategories.index')->with('success', 'SubCategory added successfully');
     }
+    
   
     /**
      * Hiển thị thông tin của resource cụ thể.
      */
-    public function show(string $id)
-    {
-        // Lấy và hiển thị thông tin chi tiết của một SubCategory cụ thể
-        $subcategory = SubCategory::findOrFail($id);
-        return view('admin.subcategories.show', compact('subcategory'));
-    }
+    // public function show(string $id)
+    // {
+    //     // Lấy và hiển thị thông tin chi tiết của một SubCategory cụ thể
+    //     $subcategory = SubCategory::findOrFail($id);
+    //     return view('admin.subcategories.show', compact('subcategory'));
+    // }
   
     /**
      * Hiển thị form để chỉnh sửa resource cụ thể.

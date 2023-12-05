@@ -9,7 +9,7 @@ class History extends Model
 {
     use HasFactory;
 
-    protected $table = 'histories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu của bạn
+    protected $table = 'histories'; // Đặt tên bảng tương ứng với tên bảng trong cơ sở dữ liệu 
 
     protected $primaryKey = 'id'; // Đặt trường làm khóa chính
 

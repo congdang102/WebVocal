@@ -46,27 +46,27 @@ class UserController extends Controller
         return view('admin.users.show', compact('user'));
     }
   
-    /**
-     * Hiển thị form để chỉnh sửa thông tin của người dùng.
-     */
-    public function edit(string $id)
-    {
-        $user = User::findOrFail($id);
+    // /**
+    //  * Hiển thị form để chỉnh sửa thông tin của người dùng.
+    //  */
+    // public function edit(string $id)
+    // {
+    //     $user = User::findOrFail($id);
   
-        return view('admin.users.edit', compact('user'));
-    }
+    //     return view('admin.users.edit', compact('user'));
+    // }
   
-    /**
-     * Cập nhật thông tin của người dùng trong cơ sở dữ liệu.
-     */
-    public function update(Request $request, string $id)
-    {
-        $user = User::findOrFail($id);
+    // /**
+    //  * Cập nhật thông tin của người dùng trong cơ sở dữ liệu.
+    //  */
+    // public function update(Request $request, string $id)
+    // {
+    //     $user = User::findOrFail($id);
   
-        $user->update($request->all());
+    //     $user->update($request->all());
   
-        return redirect()->route('users')->with('success', 'Người dùng đã được cập nhật thành công');
-    }
+    //     return redirect()->route('users')->with('success', 'Người dùng đã được cập nhật thành công');
+    // }
   
     /**
      * Xóa người dùng khỏi cơ sở dữ liệu.

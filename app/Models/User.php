@@ -32,7 +32,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
     /**
      * Các thuộc tính sẽ được chuyển đổi sang các kiểu dữ liệu cụ thể.
      *
