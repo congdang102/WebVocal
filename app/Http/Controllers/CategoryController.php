@@ -39,17 +39,7 @@ class CategoryController extends Controller
        
    }
  
-   /**
-    * Hiển thị thông tin chi tiết của một danh mục.
-    */
-//    public function show(string $id)
-//    {
-//        $category = Category::findOrFail($id);
-//        // Tìm kiếm và lấy thông tin của một danh mục theo ID
-//        return view('admin.categories.show', compact('category'));
-//        // Trả về view 'admin.categories.show' với dữ liệu của danh mục cần hiển thị
-//    }
- 
+
    /**
     * Hiển thị form để chỉnh sửa thông tin của một danh mục.
     */
@@ -59,7 +49,6 @@ class CategoryController extends Controller
        $category = Category::findOrFail($id);
        // Trả về view 'admin.categories.edit' với dữ liệu của danh mục cần chỉnh sửa
        return view('admin.categories.edit', compact('category'));
-       
    }
  
    /**

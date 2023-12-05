@@ -60,7 +60,6 @@ class HomeController extends Controller
         $histories = History::get();
         $folders = Folder::get();
         $userId = Auth::id();
-
         return view('topic', compact('topic','words','subcategories', 'userId','histories','folders'));
     }
 
